@@ -13,13 +13,18 @@ const alice1 = document.querySelector("#alice1");
 const alice2 = document.querySelector("#alice2");
 const alice3 = document.querySelector("#alice3");
 
-anim1 = alice1.animate(aliceTumbling, aliceTiming);
-console.log(anim1)
-console.dir(anim1)
+// Traditional Promise() syntax
+// alice1.animate(aliceTumbling, aliceTiming).finished.then(() => {
+//     alice2.animate(aliceTumbling, aliceTiming).finished.then(() => {
+//         alice3.animate(aliceTumbling, aliceTiming);
+//     })
+// })
 
-anim1.finished.then(() => {
-    anim2 = alice2.animate(aliceTumbling, aliceTiming);
-    anim2.finished.then(() => {
-        alice3.animate(aliceTumbling, aliceTiming);
-    })
-})
+// Async Await syntax
+const animateAll = async () => {
+    await alice1.animate(aliceTumbling, aliceTiming).finished;
+    await alice2.animate(aliceTumbling, aliceTiming).finished
+    await alice3.animate(aliceTumbling, aliceTiming).finished
+}
+
+animateAll()
